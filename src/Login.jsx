@@ -7,7 +7,7 @@ class Login extends Component {
   }
 
   handleOnChange = e => {
-    this.setstate({
+    this.setState({
       [e.target.name]: e.target.value
     });
   };
@@ -24,7 +24,7 @@ class Login extends Component {
         />{" "}
         <br />
         <input
-          type="text"
+          type="password"
           name="password"
           palceholder="password"
           value={this.state.password}

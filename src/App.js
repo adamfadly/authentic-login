@@ -15,7 +15,7 @@ class App extends Component {
     // const data = {email, password};
     const data = { email: email, password: password };
 
-    Axios.post("https://impact-byte-demo-herokuapp.com/accounts,login", data)
+    Axios.post("https://impact-byte-demo.herokuapp.com/accounts/login", data)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };

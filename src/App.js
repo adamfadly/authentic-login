@@ -69,6 +69,25 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
+  handleLogout = () => {
+    this.setState({
+      isAuthenticated: false,
+      EmployeesData: []
+    });
+    localStorage.removeItem("token");
+  };
+
+  componentDidMount = () => {
+    // 1. check token dari API
+
+    // 2. set state
+    if (localStorage.token) {
+      this.setState({
+        isAuthenticated: true
+      });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -80,17 +99,18 @@ class App extends Component {
           <h1>you are not authenticated</h1>
         )}
         <button onClick={this.getEmployeesData}>Get Employees Data</button>
-        {this.state.EmployeesData.length > 0 &&
-          this.state.EmployeesData.map((data, index) => (
-            <EmpolyeeDetail
-              key={index}
-              emp_no={data.emp_no}
-              first_name={data.first_name}
-              last_name={data.last_name}
-              birt_date={data.birth_date}
-              gender={data.gender}
-            />
-          ))}
+        {this.state.EmployeesData.map((data, index) => (
+          <EmpolyeeDetail
+            key={index}
+            emp_no={data.emp_no}
+            first_name={data.first_name}
+            last_name={data.last_name}
+            birt_date={data.birth_date}
+            gender={data.gender}
+          />
+        ))}
+        <h1>Log out!</h1>
+        <button onClick={this.state.handleLogout}>Log out</button>
       </div>
     );
   }

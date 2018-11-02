@@ -18,11 +18,11 @@ class App extends Component {
     axios
       .post("https://impact-byte-demo.herokuapp.com/accounts/login", data)
       .then(res => {
-        console.log(res.data.message);
-        if (res.data.message === "you're logged in") {
-          localStorage.setItem("token".res.data.token);
+        console.log(res.data);
+        if (res.data.message === "You are logged in") {
+          localStorage.setItem("token", res.data.token);
           this.setState({
-            isAuthentic: true
+            isAuthenticated: true
           });
         } else {
           alert("Wrong Password!");
@@ -51,11 +51,32 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
+  getEmployeesData = () => {
+    axios
+      .get("https://impact-byte-demo.herokuapp.com/employees", {
+        headers: {
+          authorization: `bearer ${localStorage.token}`
+        }
+      })
+      .then(res => {
+        this.setState({
+          EmployeesData: res.data.data
+        });
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div>
         <Login handleLogin={this.handleLogin} />
         <Register handleRegister={this.handleRegister} />
+        {this.state.isAuthenticated ? (
+          <h1>you are authenticated</h1>
+        ) : (
+          <h1>you are not authenticated</h1>
+        )}
+        <button />
       </div>
     );
   }

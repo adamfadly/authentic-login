@@ -3,11 +3,14 @@ import "./App.css";
 import Login from "./Login";
 import axios from "axios";
 import Register from "./register";
+import EmpolyeeDetail from "./EmployeeDetails";
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isAuthenticated: false
+      isAuthenticated: false,
+      EmployeesData: []
     };
   }
 
@@ -76,7 +79,18 @@ class App extends Component {
         ) : (
           <h1>you are not authenticated</h1>
         )}
-        <button />
+        <button onClick={this.getEmployeesData}>Get Employees Data</button>
+        {this.state.EmployeesData.length > 0 &&
+          this.state.EmployeesData.map((data, index) => (
+            <EmpolyeeDetail
+              key={index}
+              emp_no={data.emp_no}
+              first_name={data.first_name}
+              last_name={data.last_name}
+              birt_date={data.birth_date}
+              gender={data.gender}
+            />
+          ))}
       </div>
     );
   }

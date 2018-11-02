@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import Login from "./Login";
-import Axios from "axios";
+import axios from "axios";
 import Register from "./register";
 class App extends Component {
   constructor() {
@@ -15,7 +15,8 @@ class App extends Component {
     // const data = {email, password};
     const data = { email: email, password: password };
 
-    Axios.post("https://impact-byte-demo.herokuapp.com/accounts/login", data)
+    axios
+      .post("https://impact-byte-demo.herokuapp.com/accounts/login", data)
       .then(res => {
         console.log(res.data.message);
         if (res.data.message === "you're logged in") {
@@ -30,17 +31,18 @@ class App extends Component {
       .catch(err => console.log(err));
   };
 
-  handleRegister = (frist_name, Last_name, email, password) => {
+  handleRegister = (first_name, last_name, email, password) => {
     const body = {
-      frist_name: frist_name,
-      Last_name: Last_name,
+      first_name: first_name,
+      last_name: last_name,
       email: email,
       password: password
     };
-    Axios.post("https://impact-byte-demo.herokuapp.com/accounts/register", body)
+    axios
+      .post("https://impact-byte-demo.herokuapp.com/accounts/register", body)
       .then(res => {
-        console.log(res.data.message);
-        if (res.data.message === "register Successed") {
+        console.log(res);
+        if (res.data.message === "insert account data success") {
           alert("sucssed");
         } else {
           alert("Failed");
